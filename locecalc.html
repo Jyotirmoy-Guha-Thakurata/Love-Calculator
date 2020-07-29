@@ -8,9 +8,8 @@
 <style>
 	body
 	{
-		background-image: url('pngtree-pink-cute-love-plant-background-design-backgroundbanner-backgroundadvertising-backgroundbackground-image_55453.jpg');
 		background-size:100%;
-		background-position: center; 
+		background-position: center;
 		background-repeat: no-repeat;
 		width: 100%;
 		height: 90vh;
@@ -45,57 +44,76 @@
     		<button class="btn btn-success w-50" onclick="omshanti();">CLICK</button>
     	</div>
     	<br>
-    	 <div>  
+    	 <div>
   	<input type="text" name="" id="lovevalue"  class="form-control text-center w-25 m-auto" placeholder="Love Percentage">
   </div>
 
-    	
-    </div> 
+
+    </div>
     <div class="card-footer">No Worries Calculate Your Love</div>
   </div>
   <br>
- 
+
 </header>
 <script>
 	var count=0;
 	var arr=[];
 	var arr1=[];
 	var sum=0;
-	//var c=arr.length;
-	//var d =arr1.length;
-	
 	function omshanti()
 	{
 		var your=document.getElementById("your").value;
 		var c=your.length;
-		arr=your.split("");
 		var love=document.getElementById("her").value;
 		var d=love.length;
-		arr1=love.split("");
-		var e=c+d;
-
-		for(i=0;i<c;i++)
+		var calc=your+"loves"+love;
+		arr=calc.split("");
+		e=calc.length;
+		mydict={}
+		for(var i=0;i<e;i++)
 		{
-			
-			for(j=0;j<d;j++)
+			if(arr[i] in mydict)
 			{
-			
-				if(arr[i]==arr1[j])
-				{
-					 count=count+1;
-				}
+				mydict[arr[i]]=mydict[arr[i]]+1;
 			}
+			else
+			{
+				mydict[arr[i]]=1;
 			}
-		
-			sum=sum+count;
-			var per=(sum/e)*100;
-			per=Math.floor(per);
-			console.log(sum);
-
-			document.getElementById('lovevalue').value= per + "%";
-			count=0;
-			sum=0;
-
+		}
+		var i=0;
+		for(var key in mydict)
+		{
+			arr1[i++]=mydict[key];
+		}
+		var k=0;
+		while(true)
+		{
+			k=arr1.length;
+			if(k==2)
+			{
+				break;
+			}
+			var arr_new=[];
+			var j=0;
+			for(i=0;i<Math.floor(k/2);i++)
+			{
+				var m=arr1[i]+arr1[k-i-1];
+				var s=m.toString().split("");
+				var ls=s.length;
+				for(var a=0;a<ls;a++)
+					arr_new[j++]=Number(s[a]);
+			}
+			if(k%2==1)
+			{
+				arr_new[j++]=arr1[Math.floor(k/2)];
+			}
+			arr1=arr_new;
+		}
+		var per=arr1[0]+arr1[1];
+		document.getElementById('lovevalue').value= per + "%";
+		count=0;
+		sum=0;
 	}
 </script>
 </body>
